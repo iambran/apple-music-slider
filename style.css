@@ -1,8 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 90vh;
+  display: grid;
+  place-content: center;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.music-grid {
+  padding-inline: 2rem;
+}
+
+.music-grid__body {
+  position: relative;
+}
+
+.music-grid__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.music-grid__header a {
+  text-decoration: none;
+  color: #642110;
+}
+
 .music-grid__list {
   display: grid;
+  --grid-columns: 3;
+  --gap-numbers: calc(var(--grid-columns) - 1);
   --grid-column-gap: 20px;
   gap: var(--grid-column-gap);
-  grid-auto-columns: calc((100% - 4 * var(--grid-column-gap)) / 5);
+  grid-auto-columns: calc((100% - var(--gap-numbers) * var(--grid-column-gap)) / var(--grid-columns));
   list-style: none;
   padding: 0;
   overflow-y: hidden;
@@ -28,4 +65,31 @@
   min-height: 150px;
   font-size: 3rem;
   border-radius: 10px;
+  overflow: hidden;
+}
+
+.music-grid-nav__arrow {
+  text-decoration: none;
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  border-radius: 1.5rem;
+  border: 2px solid #777;
+  font-weight: 600;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  position: absolute;
+  background: transparent;
+  top: calc(50% - 0.75rem);
+  cursor: pointer;
+}
+
+.music-grid-nav__arrow--previous {
+  left: -2rem;
+}
+
+.music-grid-nav__arrow--next {
+  right: -2rem;
 }
