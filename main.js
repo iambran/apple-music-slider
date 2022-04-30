@@ -1,31 +1,35 @@
 const list = document.querySelector('.music-grid__list')
 const listItems = document.querySelectorAll('.music-grid__list-item')
+// 每张卡片的宽度 = 280
 const listItemWidth = listItems[0].clientWidth
-const gap = Number(window.getComputedStyle(list).getPropertyValue('--grid-column-gap').replace('px', '').trim())
+console.log(listItemWidth)
+const gap = Number(window.getComputedStyle(list).getPropertyValue('--grid-column-gap').replace('px', ''))
+console.log(gap)
+const itemsPerSlide = Number(window.getComputedStyle(list).getPropertyValue('--grid-columns'))
+console.log(itemsPerSlide)
 
-console.log(listItemWidth, gap)
-let nextButton = document.querySelector('.music-grid-nav__arrow--next')
-nextButton.addEventListener('click', showNextSlide)
-let previousButton = document.querySelector('.music-grid-nav__arrow--previous')
+const previousButton = document.querySelector('.music-grid__arrow--previous')
+const nextButton = document.querySelector('.music-grid__arrow--next')
+
 previousButton.addEventListener('click', showPreviousSlide)
+nextButton.addEventListener('click', showNextSlide)
 
-const totalItems = listItems.length
-const itemPerSlide = 3
 function showNextSlide() {
-  list.scrollLeft += (listItemWidth + gap) * itemPerSlide
+  list.scrollLeft += (listItemWidth + gap) * itemsPerSlide
 }
 
 function showPreviousSlide() {
-  list.scrollLeft -= (listItemWidth + gap) * itemPerSlide
+  list.scrollLeft -= (listItemWidth + gap) * itemsPerSlide
 }
 
-let firstItem = document.querySelector('.music-grid__list-item:first-child')
-let lastItem = document.querySelector('.music-grid__list-item:last-child')
+// 使用intersectionObserver API
+const firstItem = document.querySelector('.music-grid__list-item:first-child')
+const lastItem = document.querySelector('.music-grid__list-item:last-child')
 
 let options = {
   root: list,
-  rootMargin: '0px',
-  thredhold: 0.8
+  rootMarin: '0px',
+  threshold: 0.8
 }
 
 let observer = new IntersectionObserver(handleIntersect, options)
@@ -34,13 +38,15 @@ observer.observe(lastItem)
 
 function handleIntersect(entries, observer) {
   entries.forEach(entry => {
+    // first item
     if (!entry.target.previousElementSibling) {
       if (entry.isIntersecting) {
         previousButton.style.display = 'none'
       } else {
         previousButton.style.display = 'block'
       }
-    } else {
+    }
+    else { // last item
       if (entry.isIntersecting) {
         nextButton.style.display = 'none'
       } else {
