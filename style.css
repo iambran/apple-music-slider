@@ -1,0 +1,31 @@
+.music-grid__list {
+  display: grid;
+  --grid-column-gap: 20px;
+  gap: var(--grid-column-gap);
+  grid-auto-columns: calc((100% - 4 * var(--grid-column-gap)) / 5);
+  list-style: none;
+  padding: 0;
+  overflow-y: hidden;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  grid-auto-flow: column;
+
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.music-grid__list::-webkit-scrollbar {
+  display: none;
+}
+
+.music-grid__list-item {
+  background: cadetblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  min-height: 150px;
+  font-size: 3rem;
+  border-radius: 10px;
+}
